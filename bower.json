@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "ksf": "KAESapps/ksf#ksf2",
+    "ksf-ui": "KAESapps/ksf-ui",
     "requirejs": "latest"
   }
 }
