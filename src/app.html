@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<title>KSF demo</title>
+<script src="../bower_components/requirejs/require.js"></script>
+<body>
+	<script>
+		var srcDir = location.pathname.replace(/[^\/]+$/, '');
+		require({
+			baseUrl: '../bower_components',
+			paths: {
+				demo: srcDir + '.',
+			}
+		});
+		require(['demo/require-config'], function() {
+			require(['demo/boot']);
+		});
+	</script>
+</body>

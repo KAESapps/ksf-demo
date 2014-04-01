@@ -1,0 +1,8 @@
+#this span {
+	display: block;
+}
+#this {
+	display: inline-block;
+	border: 1px solid gray;
+	padding: 1ex;
+}

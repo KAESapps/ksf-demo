@@ -1,0 +1,21 @@
+{
+  "name": "KSF-demo",
+  "version": "0.0.0",
+  "authors": [
+    "Quentin <quentin.vuilliot@kaes.fr>",
+    "Sylvain <sylvain.vuilliot@kaes.fr>"
+  ],
+  "license": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ksf": "KAESapps/ksf#ksf2",
+    "requirejs": "latest"
+  }
+}
