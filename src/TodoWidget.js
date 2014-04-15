@@ -6,7 +6,7 @@ define([
 	'ksf-ui/widget/editable/Checkbox',
 	'ksf-ui/widget/editable/ShortText',
 	'ksf-ui/widget/Button',
-	'kss!./todo-widget.css'
+	// 'kss!./todo-widget.css'
 ], function(
 	compose,
 	CompositeBase,
@@ -31,7 +31,7 @@ define([
 			deleteBtn
 		]);
 
-		todoStyle.apply(this.domNode);
+		// todoStyle.apply(this.domNode);
 		this.domNode.id = todo._propName;
 	});
 });

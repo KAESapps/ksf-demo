@@ -5,7 +5,8 @@ require.config({
 	},
 	map: {
 		'*': {
-			kss: 'ksf/dom/style/amd-loader/kss'
+			kss: 'ksf/dom/style/amd-loader/kss',
+			compose: 'ksf/utils/compose'
 		}
 	}
 });

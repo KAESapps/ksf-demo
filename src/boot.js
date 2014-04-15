@@ -1,14 +1,20 @@
 define([
 	'compose',
 	'ksf/utils/destroy',
-	'ksf/observable/sync/store/DocumentStore',
+	'ksf/observable/StatefulFactory',
+	'ksf/observable/model/Store',
+	'ksf/observable/model/BasicPropertyObject',
+	'ksf/observable/model/Value',
 	'ksf-ui/list/List',
 	'ksf-ui/widget/Label',
 	'./TodoWidget'
 ], function(
 	compose,
 	destroy,
-	DocumentStore,
+	StatefulFactory,
+	Store,
+	BasicPropertyObject,
+	Value,
 	List,
 	Label,
 	TodoWidget
@@ -27,20 +33,27 @@ define([
 	}
 
 	console.time('loading');
-	var store = window.store = new DocumentStore(data);
+
+	var SiteStore = new StatefulFactory(new Store(new BasicPropertyObject({
+		desc: new Value(),
+		done: new Value(),
+		date: new Value(),
+	}))).ctr;
+
+	var store = new SiteStore(data);
 
 	var filtered = store.filter(function(value) {
 		return !value.done;
 	});
-	
+
 	var sorted = filtered.sort(function(value1, value2) {
 		return value1.date && value2.date && value1.date.valueOf() - value2.date.valueOf();
 		// return value1.desc === value2.desc ? 0 : value1.desc < value2.desc ? -1 : 1;
 		// return value1.desc.localeCompare(value2.desc);
 	});
 
-	var range = sorted.range(0, 20);
-	var range2 = sorted.range(20, 70);
+	var range = sorted.range(0, 10);
+	var range2 = sorted.range(5, 15);
 
 	var TestList = compose(List, {
 		_itemFactory: function(item) {
@@ -49,22 +62,26 @@ define([
 	});
 	var list = new TestList(),
 		list2 = new TestList();
-	
+
 	var count = new Label();
 	var storeCount = store.count();
-	var storeCountUser = storeCount.withValue(function (value) {
+	count.value(storeCount.value());
+	storeCount.onValue(function (value) {
 		count.value(value);
 	});
-	// destroy(storeCountUser);
-	
+
+
 	console.timeEnd('loading');
-	
+
 	console.time('list rendering');
 	list.content(range);
 	list2.content(range2);
+	// var todoWidget = new TodoWidget(store.item('999'));
 
-	document.body.appendChild(count.domNode);
+
+	// document.body.appendChild(todoWidget.domNode);
 	document.body.appendChild(list.domNode);
+	document.body.appendChild(count.domNode);
 	document.body.appendChild(list2.domNode);
 
 	console.timeEnd('list rendering');
@@ -86,7 +103,7 @@ define([
 
 	window.getSortedValue = function() {
 		console.time("sorted.value()");
-		sorted.value();
+		sorted._getValue();
 		console.timeEnd("sorted.value()");
 	};
 
@@ -94,5 +111,10 @@ define([
 		console.time("set done");
 		store.item('999').prop('done').value(true);
 		console.timeEnd("set done");
+	};
+	window.setDesc = function() {
+		console.time("set desc");
+		store.item('999').prop('desc').value("desc 999");
+		console.timeEnd("set desc");
 	};
 });
