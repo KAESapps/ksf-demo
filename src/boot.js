@@ -76,10 +76,8 @@ define([
 	console.time('list rendering');
 	list.content(range);
 	list2.content(range2);
-	// var todoWidget = new TodoWidget(store.item('999'));
 
 
-	// document.body.appendChild(todoWidget.domNode);
 	document.body.appendChild(list.domNode);
 	document.body.appendChild(count.domNode);
 	document.body.appendChild(list2.domNode);
